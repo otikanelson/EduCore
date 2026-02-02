@@ -21,11 +21,41 @@ const UserLogin = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      // Navigate to appropriate dashboard based on role
-      navigate('/admin');
-    }, 1000);
+    try {
+      // Import auth utilities
+      const { authAPI } = await import('../services/api');
+      const { login } = await import('../utils/auth');
+      
+      // Call login API
+      const response = await authAPI.login(credentials.email, credentials.password);
+      
+      // Store token and user data
+      login(response.access_token, response.user);
+      
+      // Navigate based on role
+      const role = response.user.role;
+      switch (role) {
+        case 'admin':
+          navigate('/admin');
+          break;
+        case 'teacher':
+        case 'hod':
+          navigate('/teacher');
+          break;
+        case 'parent':
+          navigate('/parent');
+          break;
+        case 'student':
+          navigate('/exam');
+          break;
+        default:
+          navigate('/');
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert(error.message || 'Login failed. Please check your credentials.');
+      setIsLoading(false);
+    }
   };
 
   return (
