@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const Pricing = () => {
   const plans = [
@@ -74,24 +76,11 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="text-xl font-semibold text-gray-900">EduCore</Link>
-            <div className="flex gap-4">
-              <Link to="/login" className="text-gray-700 hover:text-gray-900 px-4 py-2">Login</Link>
-              <button className="bg-primary-700 text-white-900 px-4 py-2 hover:bg-primary-800">
-                Contact Sales
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-[#fafaf9]">
+      <Header />
 
       {/* Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center border-b border-gray-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center bg-white border-b border-gray-300">
         <h1 className="text-3xl font-semibold text-gray-900 mb-4">
           Subscription Plans
         </h1>
@@ -101,17 +90,17 @@ const Pricing = () => {
       </div>
 
       {/* Pricing Cards */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white">
         <div className="grid md:grid-cols-3 gap-8">
           {plans.map((plan, idx) => (
             <div
               key={idx}
               className={`bg-white border-2 ${
-                plan.recommended ? 'border-black' : 'border-gray-300'
+                plan.recommended ? 'border-[#1e3a8a]' : 'border-gray-300'
               }`}
             >
               {plan.recommended && (
-                <div className="bg-primary-700 text-white-900 text-center py-2 font-semibold text-sm">
+                <div className="bg-[#1e3a8a] text-white text-center py-2 font-semibold text-sm">
                   RECOMMENDED
                 </div>
               )}
@@ -123,13 +112,16 @@ const Pricing = () => {
                   <span className="text-gray-600 ml-2">{plan.period}</span>
                   <p className="text-sm text-gray-600 mt-2">{plan.students}</p>
                 </div>
-                <button className={`w-full py-3 font-semibold mb-6 ${
-                  plan.recommended 
-                    ? 'bg-primary-700 text-white-900 hover:bg-primary-800' 
-                    : 'bg-white border-2 border-gray-300 text-gray-900 hover:bg-gray-50'
-                }`}>
+                <Link 
+                  to="/contact-sales"
+                  className={`block w-full py-3 font-semibold mb-6 text-center ${
+                    plan.recommended 
+                      ? 'bg-[#1e3a8a] text-white hover:bg-[#1e40af]' 
+                      : 'bg-white border-2 border-gray-300 text-gray-900 hover:bg-gray-50'
+                  }`}
+                >
                   Contact Sales
-                </button>
+                </Link>
                 <div className="space-y-3">
                   <p className="font-semibold text-gray-900 text-sm">INCLUDED:</p>
                   {plan.features.map((feature, fidx) => (
@@ -157,7 +149,7 @@ const Pricing = () => {
       </div>
 
       {/* Add-ons */}
-      <div className="bg-gray-50 py-16 border-t border-gray-300">
+      <div className="bg-white py-16 border-t border-gray-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Additional Services</h2>
@@ -178,7 +170,7 @@ const Pricing = () => {
       </div>
 
       {/* FAQ */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white">
         <h2 className="text-2xl font-semibold text-center text-gray-900 mb-12">Frequently Asked Questions</h2>
         <div className="space-y-6">
           <div className="bg-white border border-gray-300 p-6">
@@ -201,19 +193,21 @@ const Pricing = () => {
       </div>
 
       {/* CTA */}
-      <div className="bg-primary-700 py-16 border-t border-gray-300">
+      <div className="bg-[#1e3a8a] py-16 border-t border-gray-300">
         <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-2xl font-semibold text-white mb-4">
             Ready to Get Started?
           </h2>
-          <p className="text-gray-300 mb-8 text-base">
+          <p className="text-gray-200 mb-8 text-base">
             Contact our sales team to discuss your school's requirements
           </p>
-          <button className="bg-white text-gray-900 px-8 py-3 text-base font-semibold hover:bg-gray-100">
+          <Link to="/contact-sales" className="inline-block bg-white text-[#1e3a8a] px-8 py-3 text-base font-semibold hover:bg-gray-100">
             Contact Sales
-          </button>
+          </Link>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
