@@ -24,10 +24,18 @@ const UserLogin = () => {
     try {
       // Import auth utilities
       const { authAPI } = await import('../services/api');
-      const { login } = await import('../utils/auth');
+      const { login, DEMO_MODE, demoLogin } = await import('../utils/auth');
       
-      // Call login API
-      const response = await authAPI.login(credentials.email, credentials.password);
+      let response;
+      
+      // Use demo mode if enabled
+      if (DEMO_MODE) {
+        console.log('🎭 DEMO MODE: Using simulated login');
+        response = await demoLogin(credentials.email, credentials.password);
+      } else {
+        // Call real login API
+        response = await authAPI.login(credentials.email, credentials.password);
+      }
       
       // Store token and user data
       login(response.access_token, response.user);
@@ -156,11 +164,11 @@ const UserLogin = () => {
 
             {/* Demo Note */}
             <div className="mt-6 p-3 bg-gray-50 border border-gray-200">
-              <p className="text-xs text-gray-600 mb-2 font-medium">Demo Accounts:</p>
+              <p className="text-xs text-gray-600 mb-2 font-medium">🎭 DEMO MODE - Any password works!</p>
               <div className="text-xs text-gray-500 space-y-1">
-                <div>admin@{portalId}.edu / password123</div>
-                <div>teacher@{portalId}.edu / password123</div>
-                <div>parent@{portalId}.edu / password123</div>
+                <div>admin@fieldgreen.edu</div>
+                <div>teacher@fieldgreen.edu</div>
+                <div>parent@fieldgreen.edu</div>
               </div>
             </div>
           </form>
