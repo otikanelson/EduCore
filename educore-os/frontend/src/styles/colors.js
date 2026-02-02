@@ -3,7 +3,7 @@
 export const colors = {
   // Primary Colors
   primary: {
-    DEFAULT: '#1e3a8a', // Dark Blue (blue-900)
+    DEFAULT: '#0e1938ff', // Dark Blue (blue-900)
     dark: '#1e293b',    // Darker Blue (slate-800)
     light: '#3b82f6',   // Lighter Blue (blue-500)
   },
@@ -28,7 +28,7 @@ export const colors = {
   success: '#059669',   // green-600
   warning: '#d97706',   // amber-600
   error: '#dc2626',     // red-600
-  info: '#2563eb',      // blue-600
+  info: '#173983ff',      // blue-600
 };
 
 // Tailwind class mappings for easy use
