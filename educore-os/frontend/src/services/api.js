@@ -1,6 +1,7 @@
 import { getAuthToken, logout } from '../utils/auth';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+// Remove trailing slash from API_URL to prevent double slashes
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 // API request wrapper with authentication
 const apiRequest = async (endpoint, options = {}) => {
@@ -39,6 +40,12 @@ const apiRequest = async (endpoint, options = {}) => {
     return data;
   } catch (error) {
     console.error('API Request Error:', error);
+    
+    // Provide more helpful error messages
+    if (error.message === 'Failed to fetch') {
+      throw new Error('Cannot connect to server. Please ensure the backend is running at ' + API_URL);
+    }
+    
     throw error;
   }
 };
