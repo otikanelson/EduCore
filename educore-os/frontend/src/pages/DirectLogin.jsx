@@ -16,19 +16,26 @@ const DirectLogin = () => {
       const { authAPI } = await import('../services/api');
       const { login, DEMO_MODE, demoLogin } = await import('../utils/auth');
       
+      console.log('🔍 Login attempt - DEMO_MODE:', DEMO_MODE);
+      console.log('📧 Email:', credentials.email);
+      
       let response;
       
       // Use demo mode if enabled
       if (DEMO_MODE) {
-        console.log('🎭 DEMO MODE: Using simulated login');
+        console.log('🎭 DEMO MODE ACTIVE: Using simulated login');
         response = await demoLogin(credentials.email, credentials.password);
+        console.log('✅ Demo login successful:', response);
       } else {
+        console.log('🌐 Using real backend API');
         // Call real login API
         response = await authAPI.login(credentials.email, credentials.password);
       }
       
       // Store token and user data
       login(response.access_token, response.user);
+      
+      console.log('✅ Login successful, navigating to dashboard...');
       
       // Navigate based on role
       const role = response.user.role;
@@ -50,7 +57,7 @@ const DirectLogin = () => {
           navigate('/');
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('❌ Login failed:', error);
       alert(error.message || 'Login failed. Please check your credentials.');
       setIsLoading(false);
     }
