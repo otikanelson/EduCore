@@ -11,20 +11,37 @@ export default async (req, res) => {
     const app = await NestFactory.create(
       AppModule,
       new ExpressAdapter(server),
-      { cors: true }
     );
     
+    // Enable CORS for both local and production
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'https://edu-core-eight.vercel.app',
+      'https://edu-core.vercel.app',
+    ];
+    
     app.enableCors({
-      origin: '*',
+      origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          console.log('CORS blocked origin:', origin);
+          callback(null, true); // Allow anyway for now
+        }
+      },
       credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+      exposedHeaders: ['Authorization'],
     });
     
     app.useGlobalPipes(new ValidationPipe({
       whitelist: true,
       transform: true,
     }));
-    
-    app.setGlobalPrefix('api');
     
     await app.init();
     global.app = app;
