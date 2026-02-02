@@ -7,6 +7,7 @@ import PortalConnect from './pages/PortalConnect';
 import UserLogin from './pages/UserLogin';
 import DirectLogin from './pages/DirectLogin';
 import Pricing from './pages/Pricing';
+import ContactSales from './pages/ContactSales';
 import Unauthorized from './pages/Unauthorized';
 
 // Protected pages
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login/user" element={<UserLogin />} />
         <Route path="/login/direct" element={<DirectLogin />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/contact-sales" element={<ContactSales />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
 
         {/* Protected Routes - Admin Only */}
