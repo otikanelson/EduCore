@@ -8,6 +8,10 @@ export interface User {
   password: string;
   role: string;
   name: string;
+  schoolId?: string | null;
+  requirePasswordChange?: boolean;
+  lastLoginAt?: Date | null;
+  lastLoginIp?: string | null;
 }
 
 @Injectable()

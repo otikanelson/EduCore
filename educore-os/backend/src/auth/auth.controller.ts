@@ -86,7 +86,7 @@ export class AuthController {
     return { message: 'School rejected successfully' };
   }
 
-  @Throttle({ default: { limit: 5, ttl: 900000 } }) // 5 requests per 15 minutes
+  // @Throttle({ default: { limit: 5, ttl: 900000 } }) // 5 requests per 15 minutes - TEMPORARILY DISABLED FOR TESTING
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,

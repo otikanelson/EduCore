@@ -52,6 +52,7 @@ model School {
   contactPersonName     String
   contactPersonRole     String
   contactPersonPhone    String
+  contactPersonId       String?            // Government-issued ID number
   estimatedStudentCount Int
   subdomain             String             @unique
   customDomain          String?            @unique

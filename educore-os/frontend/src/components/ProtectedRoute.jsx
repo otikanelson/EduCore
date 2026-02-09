@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { isAuthenticated, getUserRole, isTokenExpired, DEMO_MODE } from '../utils/auth';
+import { isAuthenticated, getUserRole, isTokenExpired, isRefreshTokenExpired } from '../utils/auth';
 
 const ProtectedRoute = ({ children, allowedRoles = [] }) => {
   const location = useLocation();
@@ -8,9 +8,9 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     path: location.pathname,
     isAuthenticated: isAuthenticated(),
     isTokenExpired: isTokenExpired(),
+    isRefreshTokenExpired: isRefreshTokenExpired(),
     userRole: getUserRole(),
-    allowedRoles,
-    demoMode: DEMO_MODE
+    allowedRoles
   });
   
   // Check if user is authenticated
@@ -20,10 +20,11 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   
-  // Check if token is expired
-  if (isTokenExpired()) {
-    console.log('❌ Token expired, redirecting to login');
-    // Clear expired token and redirect to login
+  // Check if refresh token is expired (not just access token)
+  // Access token will be refreshed automatically by the API service
+  if (isRefreshTokenExpired()) {
+    console.log('❌ Refresh token expired, redirecting to login');
+    // Clear expired tokens and redirect to login
     localStorage.clear();
     return <Navigate to="/login" state={{ from: location, expired: true }} replace />;
   }

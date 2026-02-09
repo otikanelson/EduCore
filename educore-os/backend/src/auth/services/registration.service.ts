@@ -19,6 +19,7 @@ export interface SchoolRegistrationData {
   contactPersonName: string;
   contactPersonRole: string;
   contactPersonPhone: string;
+  contactPersonId: string;
   
   // Additional Info
   estimatedStudentCount: number;
@@ -104,6 +105,7 @@ export class RegistrationService {
           contactPersonName: data.contactPersonName,
           contactPersonRole: data.contactPersonRole,
           contactPersonPhone: data.contactPersonPhone,
+          contactPersonId: data.contactPersonId,
           estimatedStudentCount: data.estimatedStudentCount,
           subdomain: data.subdomain.toLowerCase(),
           status: SchoolStatus.PENDING_VERIFICATION,

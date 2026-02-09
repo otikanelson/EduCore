@@ -1,17 +1,79 @@
-import { getAuthToken, logout } from '../utils/auth';
+import { getAuthToken, getRefreshToken, setAuthToken, logout, isTokenExpired, isRefreshTokenExpired } from '../utils/auth';
 
 // Remove trailing slash from API_URL to prevent double slashes
 const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 
-// API request wrapper with authentication
+// Flag to prevent multiple simultaneous refresh attempts
+let isRefreshing = false;
+let refreshPromise = null;
+
+// Refresh the access token
+const refreshAccessToken = async () => {
+  const refreshToken = getRefreshToken();
+  
+  if (!refreshToken || isRefreshTokenExpired()) {
+    logout();
+    throw new Error('Session expired. Please login again.');
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/auth/refresh`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshToken }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to refresh token');
+    }
+
+    const data = await response.json();
+    setAuthToken(data.accessToken);
+    return data.accessToken;
+  } catch (error) {
+    console.error('Token refresh failed:', error);
+    logout();
+    throw error;
+  }
+};
+
+// API request wrapper with authentication and automatic token refresh
 const apiRequest = async (endpoint, options = {}) => {
+  // Don't try to refresh token for login/register endpoints
+  const isAuthEndpoint = endpoint.includes('/auth/login') || 
+                         endpoint.includes('/auth/register') || 
+                         endpoint.includes('/auth/refresh') ||
+                         endpoint.includes('/auth/check-portal');
+
+  console.log('🔍 API Request:', { endpoint, isAuthEndpoint, hasToken: !!getAuthToken() });
+
+  // Check if token needs refresh before making the request (skip for auth endpoints)
+  if (!isAuthEndpoint && getAuthToken() && isTokenExpired() && !isRefreshTokenExpired()) {
+    console.log('🔄 Token expired, attempting refresh...');
+    // If already refreshing, wait for that to complete
+    if (isRefreshing) {
+      await refreshPromise;
+    } else {
+      // Start refresh process
+      isRefreshing = true;
+      refreshPromise = refreshAccessToken().finally(() => {
+        isRefreshing = false;
+        refreshPromise = null;
+      });
+      await refreshPromise;
+    }
+  }
+
   const token = getAuthToken();
   
   const config = {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` }),
+      // Only add auth header if we have a token AND it's not an auth endpoint (except refresh)
+      ...(token && !isAuthEndpoint && { 'Authorization': `Bearer ${token}` }),
       ...options.headers,
     },
   };
@@ -19,8 +81,43 @@ const apiRequest = async (endpoint, options = {}) => {
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
     
+    console.log('📡 Response:', { endpoint, status: response.status, isAuthEndpoint });
+    
+    // Handle rate limiting (429)
+    if (response.status === 429) {
+      console.log('⏱️ Rate limited - too many requests');
+      throw new Error('Too many login attempts. Please wait a few minutes and try again.');
+    }
+    
     // Handle unauthorized (401) - token expired or invalid
     if (response.status === 401) {
+      // For auth endpoints (login/register), don't try to refresh - just return the error
+      if (isAuthEndpoint) {
+        const data = await response.json();
+        console.log('❌ Auth endpoint failed with 401:', data);
+        throw new Error(data.message || 'Invalid credentials. Please check your email and password.');
+      }
+
+      // For protected endpoints, try to refresh token once
+      if (!isRefreshTokenExpired()) {
+        console.log('🔄 Protected endpoint 401, trying to refresh token...');
+        try {
+          await refreshAccessToken();
+          // Retry the original request with new token
+          const newToken = getAuthToken();
+          config.headers['Authorization'] = `Bearer ${newToken}`;
+          const retryResponse = await fetch(`${API_URL}${endpoint}`, config);
+          
+          if (retryResponse.ok) {
+            return await retryResponse.json();
+          }
+        } catch (refreshError) {
+          console.error('❌ Token refresh failed:', refreshError);
+        }
+      }
+      
+      // Only logout and show "session expired" for protected endpoints
+      console.log('❌ Session expired, logging out...');
       logout();
       throw new Error('Session expired. Please login again.');
     }

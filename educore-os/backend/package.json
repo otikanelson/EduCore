@@ -14,7 +14,10 @@
     "test:cov": "jest --coverage",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:seed": "ts-node prisma/seed.ts"
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "create:manufacturer": "node create-manufacturer.js",
+    "list:users": "node list-users.js",
+    "delete:user": "node delete-user.js"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

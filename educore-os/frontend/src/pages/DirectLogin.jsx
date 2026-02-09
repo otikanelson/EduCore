@@ -26,7 +26,13 @@ const DirectLogin = () => {
       );
       
       // Store token and user data
-      login(response.accessToken, response.user);
+      login(response.accessToken, response.refreshToken, response.user);
+      
+      // Check if school is pending verification
+      if (response.user.schoolStatus === 'PENDING_VERIFICATION') {
+        navigate('/pending-verification');
+        return;
+      }
       
       // Check if password change is required
       if (response.user.requirePasswordChange) {

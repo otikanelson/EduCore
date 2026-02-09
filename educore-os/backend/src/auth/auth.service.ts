@@ -32,8 +32,8 @@ export class AuthService {
   ): Promise<any> {
     // 1. Check rate limits (email and IP)
     if (ipAddress) {
-      const emailRateLimit = await this.rateLimiterService.checkEmailRateLimit(email);
-      if (!emailRateLimit.allowed) {
+      const rateLimit = await this.rateLimiterService.checkRateLimit(email, ipAddress);
+      if (!rateLimit.allowed) {
         await this.auditLogService.log(
           AuditEventType.LOGIN_FAILED,
           ipAddress,
@@ -42,21 +42,7 @@ export class AuthService {
           { email, reason: 'Rate limit exceeded' },
         );
         throw new UnauthorizedException(
-          `Too many login attempts. Please try again in ${Math.ceil(emailRateLimit.retryAfter / 60)} minutes.`,
-        );
-      }
-
-      const ipRateLimit = await this.rateLimiterService.checkIpRateLimit(ipAddress);
-      if (!ipRateLimit.allowed) {
-        await this.auditLogService.log(
-          AuditEventType.LOGIN_FAILED,
-          ipAddress,
-          null,
-          null,
-          { email, reason: 'IP rate limit exceeded' },
-        );
-        throw new UnauthorizedException(
-          `Too many login attempts from this IP. Please try again in ${Math.ceil(ipRateLimit.retryAfter / 60)} minutes.`,
+          `Too many login attempts. Please try again in ${Math.ceil(rateLimit.retryAfter / 60)} minutes.`,
         );
       }
     }
@@ -67,8 +53,12 @@ export class AuthService {
     if (!user) {
       // Record failed attempt even if user doesn't exist (for rate limiting)
       if (ipAddress) {
-        await this.rateLimiterService.recordEmailAttempt(email);
-        await this.rateLimiterService.recordIpAttempt(ipAddress);
+        await this.rateLimiterService.recordAttempt({
+          email,
+          ipAddress,
+          success: false,
+          failureReason: 'User not found',
+        });
         await this.auditLogService.log(
           AuditEventType.LOGIN_FAILED,
           ipAddress,
@@ -83,26 +73,43 @@ export class AuthService {
     // 3. Validate portal/school if portalId provided
     if (portalId) {
       const portal = await this.portalService.checkPortal(portalId);
-      if (user.schoolId !== portal.id) {
-        if (ipAddress) {
-          await this.rateLimiterService.recordEmailAttempt(email);
-          await this.rateLimiterService.recordIpAttempt(ipAddress);
-          await this.lockoutService.recordFailedAttempt(user.id);
-          await this.auditLogService.log(
-            AuditEventType.LOGIN_FAILED,
-            ipAddress,
-            user.id,
-            null,
-            { email, reason: 'User does not belong to this school' },
-          );
+      
+      if (user.schoolId) {
+        const school = await this.prisma.school.findUnique({
+          where: { id: user.schoolId },
+        });
+        
+        if (!school || school.id !== portal.id) {
+          if (ipAddress) {
+            await this.rateLimiterService.recordAttempt({
+              email,
+              ipAddress,
+              success: false,
+              failureReason: 'User does not belong to this school',
+              userId: user.id,
+            });
+            await this.lockoutService.recordFailedAttempt(user.id);
+            await this.auditLogService.log(
+              AuditEventType.LOGIN_FAILED,
+              ipAddress,
+              user.id,
+              null,
+              { email, reason: 'User does not belong to this school' },
+            );
+          }
+          throw new UnauthorizedException('Invalid credentials');
         }
-        throw new UnauthorizedException('Invalid credentials');
+      } else {
+        // User has no schoolId (e.g., MANUFACTURER), check if they should have one
+        if (user.role !== 'MANUFACTURER') {
+          throw new UnauthorizedException('Invalid credentials');
+        }
       }
     }
 
     // 4. Check account lockout status
     const lockoutStatus = await this.lockoutService.checkLockout(user.id);
-    if (lockoutStatus.isLocked) {
+    if (lockoutStatus.locked) {
       if (ipAddress) {
         await this.auditLogService.log(
           AuditEventType.LOGIN_FAILED,
@@ -112,8 +119,11 @@ export class AuthService {
           { email, reason: 'Account locked' },
         );
       }
+      const remainingTime = lockoutStatus.until 
+        ? Math.ceil((lockoutStatus.until.getTime() - Date.now()) / 1000)
+        : 1800; // Default 30 minutes
       throw new UnauthorizedException(
-        `Account is locked due to too many failed login attempts. Please try again in ${Math.ceil(lockoutStatus.remainingTime / 60)} minutes.`,
+        `Account is locked due to too many failed login attempts. Please try again in ${Math.ceil(remainingTime / 60)} minutes.`,
       );
     }
 
@@ -126,9 +136,14 @@ export class AuthService {
     if (!isPasswordValid) {
       // Record failed attempt
       if (ipAddress) {
-        await this.rateLimiterService.recordEmailAttempt(email);
-        await this.rateLimiterService.recordIpAttempt(ipAddress);
-        await this.lockoutService.recordFailedAttempt(user.id);
+        await this.rateLimiterService.recordAttempt({
+          email,
+          ipAddress,
+          success: false,
+          failureReason: 'Invalid password',
+          userId: user.id,
+        });
+        const newLockoutStatus = await this.lockoutService.recordFailedAttempt(user.id);
         await this.auditLogService.log(
           AuditEventType.LOGIN_FAILED,
           ipAddress,
@@ -136,14 +151,16 @@ export class AuthService {
           null,
           { email, reason: 'Invalid password' },
         );
-      }
-      
-      // Check if account is now locked after this attempt
-      const newLockoutStatus = await this.lockoutService.checkLockout(user.id);
-      if (newLockoutStatus.isLocked) {
-        throw new UnauthorizedException(
-          `Account has been locked due to too many failed login attempts. Please try again in ${Math.ceil(newLockoutStatus.remainingTime / 60)} minutes.`,
-        );
+        
+        // Check if account is now locked after this attempt
+        if (newLockoutStatus.locked) {
+          const remainingTime = newLockoutStatus.until 
+            ? Math.ceil((newLockoutStatus.until.getTime() - Date.now()) / 1000)
+            : 1800; // Default 30 minutes
+          throw new UnauthorizedException(
+            `Account has been locked due to too many failed login attempts. Please try again in ${Math.ceil(remainingTime / 60)} minutes.`,
+          );
+        }
       }
       
       throw new UnauthorizedException('Invalid credentials');
@@ -165,6 +182,16 @@ export class AuthService {
     userAgent: string,
     rememberMe: boolean = false,
   ) {
+    // Get school status if user belongs to a school
+    let schoolStatus = null;
+    if (user.schoolId) {
+      const school = await this.prisma.school.findUnique({
+        where: { id: user.schoolId },
+        select: { status: true },
+      });
+      schoolStatus = school?.status || null;
+    }
+
     // Generate token pair
     const tokens = await this.tokenService.generateTokenPair(
       user.id,
@@ -211,6 +238,7 @@ export class AuthService {
         role: user.role,
         name: user.name,
         schoolId: user.schoolId,
+        schoolStatus: schoolStatus,
         requirePasswordChange: user.requirePasswordChange,
       },
     };

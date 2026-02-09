@@ -1,11 +1,16 @@
 // Authentication utility functions
 
 export const AUTH_TOKEN_KEY = 'educore_auth_token';
+export const REFRESH_TOKEN_KEY = 'educore_refresh_token';
 export const USER_DATA_KEY = 'educore_user_data';
 
 // Store authentication data
 export const setAuthToken = (token) => {
   localStorage.setItem(AUTH_TOKEN_KEY, token);
+};
+
+export const setRefreshToken = (token) => {
+  localStorage.setItem(REFRESH_TOKEN_KEY, token);
 };
 
 export const setUserData = (userData) => {
@@ -15,6 +20,10 @@ export const setUserData = (userData) => {
 // Retrieve authentication data
 export const getAuthToken = () => {
   return localStorage.getItem(AUTH_TOKEN_KEY);
+};
+
+export const getRefreshToken = () => {
+  return localStorage.getItem(REFRESH_TOKEN_KEY);
 };
 
 export const getUserData = () => {
@@ -38,12 +47,14 @@ export const getUserRole = () => {
 // Clear authentication data (logout)
 export const clearAuth = () => {
   localStorage.removeItem(AUTH_TOKEN_KEY);
+  localStorage.removeItem(REFRESH_TOKEN_KEY);
   localStorage.removeItem(USER_DATA_KEY);
 };
 
 // Login function
-export const login = (token, userData) => {
-  setAuthToken(token);
+export const login = (accessToken, refreshToken, userData) => {
+  setAuthToken(accessToken);
+  setRefreshToken(refreshToken);
   setUserData(userData);
 };
 
@@ -62,9 +73,27 @@ export const isTokenExpired = () => {
     // Decode JWT token (basic decode, not verification)
     const payload = JSON.parse(atob(token.split('.')[1]));
     const expirationTime = payload.exp * 1000; // Convert to milliseconds
-    return Date.now() >= expirationTime;
+    const now = Date.now();
+    
+    // Consider token expired if it expires in less than 1 minute
+    // This gives us time to refresh before it actually expires
+    return now >= (expirationTime - 60000);
   } catch (error) {
     // If token can't be decoded, consider it expired
+    return true;
+  }
+};
+
+// Check if refresh token is expired
+export const isRefreshTokenExpired = () => {
+  const token = getRefreshToken();
+  if (!token) return true;
+  
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const expirationTime = payload.exp * 1000;
+    return Date.now() >= expirationTime;
+  } catch (error) {
     return true;
   }
 };

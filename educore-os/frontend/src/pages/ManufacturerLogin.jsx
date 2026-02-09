@@ -5,11 +5,13 @@ import { motion } from 'framer-motion';
 const ManufacturerLogin = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
     
     try {
       const { authAPI } = await import('../services/api');
@@ -24,13 +26,13 @@ const ManufacturerLogin = () => {
       }
       
       // Store token and user data
-      login(response.access_token, response.user);
+      login(response.accessToken, response.refreshToken, response.user);
       
       // Navigate to manufacturer dashboard
       navigate('/manufacturer/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
-      alert(error.message || 'Login failed. Please check your credentials.');
+      setError(error.message || 'Login failed. Please check your credentials.');
       setIsLoading(false);
     }
   };
@@ -76,6 +78,13 @@ const ManufacturerLogin = () => {
           </div>
 
           <form onSubmit={handleLogin}>
+            {/* Error Message */}
+            {error && (
+              <div className="mb-4 p-3 bg-red-900 border border-red-700 rounded text-red-200 text-sm">
+                {error}
+              </div>
+            )}
+
             {/* Email Input */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-300 mb-2">

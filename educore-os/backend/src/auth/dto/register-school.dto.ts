@@ -43,6 +43,11 @@ export class RegisterSchoolDto {
   @IsNotEmpty()
   contactPersonPhone: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(5)
+  contactPersonId: string;
+
   // Additional Info
   @IsNumber()
   @Min(1)
