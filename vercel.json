@@ -9,28 +9,14 @@
       }
     },
     {
-      "src": "educore-os/backend/src/main.ts",
+      "src": "educore-os/backend/api/index.ts",
       "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "educore-os/backend/src/main.ts"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "educore-os/frontend/dist/$1"
     }
   ],
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "educore-os/backend/src/main.ts"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/educore-os/backend/api/index.ts"
     }
   ]
 }

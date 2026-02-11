@@ -227,18 +227,20 @@ export class RegistrationService {
       data: { status: SchoolStatus.ACTIVE },
     });
 
-    // Log approval
-    await this.auditLogService.log(
-      AuditEventType.USER_UPDATED,
-      ipAddress,
-      manufacturerId,
-      userAgent,
-      {
-        action: 'APPROVE_SCHOOL',
-        schoolId,
-        schoolName: school.name,
-      },
-    );
+    // Log approval (only if manufacturerId is a valid user ID, not 'system')
+    if (manufacturerId && manufacturerId !== 'system') {
+      await this.auditLogService.log(
+        AuditEventType.USER_UPDATED,
+        ipAddress,
+        manufacturerId,
+        userAgent,
+        {
+          action: 'APPROVE_SCHOOL',
+          schoolId,
+          schoolName: school.name,
+        },
+      );
+    }
 
     // TODO: Send approval email to school admin (Phase 9)
   }
@@ -271,19 +273,21 @@ export class RegistrationService {
       data: { status: SchoolStatus.SUSPENDED },
     });
 
-    // Log rejection
-    await this.auditLogService.log(
-      AuditEventType.USER_UPDATED,
-      ipAddress,
-      manufacturerId,
-      userAgent,
-      {
-        action: 'REJECT_SCHOOL',
-        schoolId,
-        schoolName: school.name,
-        reason,
-      },
-    );
+    // Log rejection (only if manufacturerId is a valid user ID, not 'system')
+    if (manufacturerId && manufacturerId !== 'system') {
+      await this.auditLogService.log(
+        AuditEventType.USER_UPDATED,
+        ipAddress,
+        manufacturerId,
+        userAgent,
+        {
+          action: 'REJECT_SCHOOL',
+          schoolId,
+          schoolName: school.name,
+          reason,
+        },
+      );
+    }
 
     // TODO: Send rejection email to school admin (Phase 9)
   }

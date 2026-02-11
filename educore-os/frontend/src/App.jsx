@@ -16,6 +16,7 @@ import Unauthorized from './pages/Unauthorized';
 import ManufacturerLogin from './pages/ManufacturerLogin';
 import ManufacturerDashboard from './pages/ManufacturerDashboard';
 import SchoolRegistrations from './pages/SchoolRegistrations';
+import PlanSelection from './pages/PlanSelection';
 import AdminDashboard from './pages/AdminDashboard';
 import StudentManagement from './pages/StudentManagement';
 import ResultApproval from './pages/ResultApproval';
@@ -55,6 +56,8 @@ function App() {
             <SchoolRegistrations />
           </ProtectedRoute>
         } />
+
+        <Route path="/plan-selection" element={<PlanSelection />} />
 
         <Route path="/admin" element={
           <ProtectedRoute allowedRoles={['SCHOOL_ADMIN', 'ADMIN']}>

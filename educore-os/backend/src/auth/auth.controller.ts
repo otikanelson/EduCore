@@ -47,11 +47,13 @@ export class AuthController {
     return result;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('registrations/pending')
   async getPendingRegistrations() {
     return this.registrationService.getPendingRegistrations();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('registrations/:schoolId/approve')
   async approveRegistration(
     @Param('schoolId') schoolId: string,
@@ -68,6 +70,7 @@ export class AuthController {
     return { message: 'School approved successfully' };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('registrations/:schoolId/reject')
   async rejectRegistration(
     @Param('schoolId') schoolId: string,
