@@ -163,7 +163,7 @@
 ### Create Test Manufacturer
 ```bash
 cd educore-os/backend
-node create-manufacturer.js "Test Admin" "admin@educore.com" "Admin@123"
+node create-manufacturer.js "Test Admin" "admin@skoolar.com" "Admin@123"
 ```
 
 ### Start Development Servers

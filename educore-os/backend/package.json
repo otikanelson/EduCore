@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "EduCore OS Backend API",
+  "description": "Skoolar Backend API",
   "main": "dist/main.js",
   "scripts": {
     "build": "nest build",

@@ -35,7 +35,7 @@ const PortalConnect = () => {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="mb-6"
           >
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">EduCore OS</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Skoolar</h1>
             <p className="text-sm text-gray-600">Academic Management Platform</p>
           </motion.div>
         </div>
@@ -75,7 +75,7 @@ const PortalConnect = () => {
                   disabled={isConnecting}
                 />
                 <span className="px-4 py-3 text-sm text-gray-500 bg-gray-50 border-l border-gray-300">
-                  .educore.ng
+                  .skoolar.com
                 </span>
               </div>
               <p className="text-xs text-gray-500 mt-2">
@@ -135,7 +135,7 @@ const PortalConnect = () => {
               <div>
                 <p className="text-xs font-medium text-gray-700 mb-1">What is a Portal ID?</p>
                 <p className="text-xs text-gray-600">
-                  Your school's unique identifier on the EduCore network. Contact your school administrator if you don't know your portal ID.
+                  Your school's unique identifier on the Skoolar network. Contact your school administrator if you don't know your portal ID.
                 </p>
               </div>
             </div>

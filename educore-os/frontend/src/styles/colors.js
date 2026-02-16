@@ -1,4 +1,4 @@
-// EduCore Color System - Institutional Professional Palette
+// Skoolar Color System - Institutional Professional Palette
 
 export const colors = {
   // Primary Colors

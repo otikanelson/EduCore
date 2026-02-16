@@ -5,7 +5,7 @@ import 'dotenv/config';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Starting EduCore SaaS database seed...');
+  console.log('🌱 Starting Skoolar SaaS database seed...');
 
   // Clear existing data
   console.log('🗑️  Clearing existing data...');

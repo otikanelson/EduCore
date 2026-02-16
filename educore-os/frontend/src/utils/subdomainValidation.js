@@ -52,5 +52,5 @@ export const formatSubdomain = (value) => {
  */
 export const getSubdomainPreview = (subdomain) => {
   if (!subdomain) return '';
-  return `${subdomain}.educore.ng`;
+  return `${subdomain}.skoolar.com`;
 };

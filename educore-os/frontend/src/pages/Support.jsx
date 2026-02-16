@@ -16,7 +16,7 @@ const Support = () => {
   const faqs = {
     'getting-started': [
       {
-        question: 'How do I get started with EduCore?',
+        question: 'How do I get started with Skoolar?',
         answer: 'After registration and approval, you will receive login credentials and access to our onboarding portal. Our team will guide you through the initial setup, data migration, and staff training.',
       },
       {
@@ -59,7 +59,7 @@ const Support = () => {
     'technical': [
       {
         question: 'What are the system requirements?',
-        answer: 'EduCore is web-based and works on any modern browser (Chrome, Firefox, Safari, Edge). For CBT exams, we recommend computers with at least 4GB RAM and stable internet connection.',
+        answer: 'Skoolar is web-based and works on any modern browser (Chrome, Firefox, Safari, Edge). For CBT exams, we recommend computers with at least 4GB RAM and stable internet connection.',
       },
       {
         question: 'Is my data backed up?',
@@ -76,12 +76,12 @@ const Support = () => {
         answer: 'We use industry-standard encryption for data in transit and at rest. Access is controlled through role-based permissions, and all activities are logged for audit purposes.',
       },
       {
-        question: 'Is EduCore NDPR compliant?',
-        answer: 'Yes, EduCore is compliant with Nigeria Data Protection Regulation (NDPR). We implement strict data protection measures and provide tools for data privacy management.',
+        question: 'Is Skoolar NDPR compliant?',
+        answer: 'Yes, Skoolar is compliant with Nigeria Data Protection Regulation (NDPR). We implement strict data protection measures and provide tools for data privacy management.',
       },
       {
         question: 'Who has access to school data?',
-        answer: 'Only authorized school staff have access to data based on their assigned roles. EduCore staff can only access data for support purposes with explicit permission.',
+        answer: 'Only authorized school staff have access to data based on their assigned roles. Skoolar staff can only access data for support purposes with explicit permission.',
       },
     ],
   };
@@ -114,10 +114,10 @@ const Support = () => {
             <h3 className="font-semibold text-gray-900 mb-2">Email Support</h3>
             <p className="text-sm text-gray-600 mb-3">Get help via email</p>
             <a 
-              href="mailto:support@educore.ng" 
+              href="mailto:support@skoolar.com" 
               className="text-[#1e3a8a] font-semibold hover:underline text-sm"
             >
-              support@educore.ng
+              support@skoolar.com
             </a>
           </div>
 
@@ -206,7 +206,7 @@ const Support = () => {
             Our support team is here to assist you
           </p>
           <a 
-            href="mailto:support@educore.ng"
+            href="mailto:support@skoolar.com"
             className="inline-block bg-[#1e3a8a] text-white px-8 py-3 font-semibold hover:bg-[#1e40af] transition-colors"
           >
             Contact Support

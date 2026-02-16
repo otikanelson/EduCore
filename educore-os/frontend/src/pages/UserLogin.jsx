@@ -98,7 +98,7 @@ const UserLogin = () => {
           <div className="inline-flex items-center gap-2 bg-white border border-gray-300 rounded px-4 py-2 mb-4">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-xs text-gray-600">Connected to: </span>
-            <span className="text-xs font-mono text-[#1e3a8a] font-semibold">{portalId}.educore.ng</span>
+            <span className="text-xs font-mono text-[#1e3a8a] font-semibold">{portalId}.skoolar.com</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-1">
             {portalId.charAt(0).toUpperCase() + portalId.slice(1)} Secondary School
@@ -213,7 +213,7 @@ const UserLogin = () => {
           </button>
         </motion.div>
         <div className="text-center mt-4">
-          <p className="text-xs text-gray-500">Powered by EduCore OS</p>
+          <p className="text-xs text-gray-500">Powered by Skoolar</p>
         </div>
       </motion.div>
     </div>

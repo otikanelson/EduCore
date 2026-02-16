@@ -392,7 +392,7 @@ const SchoolRegistration = () => {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#1e3a8a] font-bold">3.</span>
-                <span>After approval, you can login and start using EduCore</span>
+                <span>After approval, you can login and start using Skoolar</span>
               </li>
             </ul>
           </div>
@@ -416,7 +416,7 @@ const SchoolRegistration = () => {
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">School Registration</h1>
-          <p className="text-sm sm:text-base text-gray-600">Register your school to get started with EduCore</p>
+          <p className="text-sm sm:text-base text-gray-600">Register your school to get started with Skoolar</p>
           <button
             onClick={() => navigate('/login')}
             className="text-[#1e3a8a] hover:text-blue-700 text-xs sm:text-sm mt-2 font-medium"
@@ -1063,7 +1063,7 @@ const SchoolRegistration = () => {
 
         {/* Help Text */}
         <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-600 px-4">
-          <p>Need help? Contact our support team at support@educore.ng</p>
+          <p>Need help? Contact our support team at support@skoolar.com</p>
           <p className="mt-2">
             To register, you need to read and agree to our{' '}
             <a href="/terms" className="text-[#1e3a8a] hover:text-blue-700">Terms of use</a>

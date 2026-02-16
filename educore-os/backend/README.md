@@ -1,4 +1,4 @@
-# EduCore Backend API (NestJS)
+# Skoolar Backend API (NestJS)
 
 ## Setup Instructions
 

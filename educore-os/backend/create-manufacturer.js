@@ -10,8 +10,8 @@ async function createManufacturer() {
 
     // Get command line arguments
     const args = process.argv.slice(2);
-    const name = args[0] || 'EduCore Manufacturer';
-    const email = args[1] || 'manufacturer@educore.com';
+    const name = args[0] || 'Skoolar Manufacturer';
+    const email = args[1] || 'manufacturer@skoolar.com';
     const password = args[2] || 'Manufacturer@123';
 
     // Manufacturer credentials

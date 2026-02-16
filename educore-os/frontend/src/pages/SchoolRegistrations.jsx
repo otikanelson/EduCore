@@ -186,7 +186,7 @@ const SchoolRegistrations = () => {
           {/* Logo */}
           <div className="p-6 border-b border-gray-200 flex items-center justify-between">
             {!isSidebarCollapsed && (
-              <h1 className="text-xl font-bold text-[#1e3a8a]">EduCore</h1>
+              <h1 className="text-xl font-bold text-[#1e3a8a]">Skoolar</h1>
             )}
             <button
               onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
@@ -303,7 +303,7 @@ const SchoolRegistrations = () => {
                       <tr key={school.id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4 border-r border-gray-200">
                           <div className="font-medium text-gray-900">{school.name}</div>
-                          <div className="text-sm text-gray-500">{school.subdomain}.educore.com</div>
+                          <div className="text-sm text-gray-500">{school.subdomain}.skoolar.com</div>
                         </td>
                         <td className="px-6 py-4 border-r border-gray-200">
                           <span className="inline-flex px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded">
@@ -372,7 +372,7 @@ const SchoolRegistrations = () => {
                                     </div>
                                     <div>
                                       <span className="text-gray-600">Subdomain:</span>
-                                      <p className="font-medium text-gray-900 mt-1">{school.subdomain}.educore.com</p>
+                                      <p className="font-medium text-gray-900 mt-1">{school.subdomain}.skoolar.com</p>
                                     </div>
                                     <div>
                                       <span className="text-gray-600">Est. Students:</span>

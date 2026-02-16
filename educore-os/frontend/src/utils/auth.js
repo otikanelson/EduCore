@@ -1,8 +1,8 @@
 // Authentication utility functions
 
-export const AUTH_TOKEN_KEY = 'educore_auth_token';
-export const REFRESH_TOKEN_KEY = 'educore_refresh_token';
-export const USER_DATA_KEY = 'educore_user_data';
+export const AUTH_TOKEN_KEY = 'skoolar_auth_token';
+export const REFRESH_TOKEN_KEY = 'skoolar_refresh_token';
+export const USER_DATA_KEY = 'skoolar_user_data';
 
 // Store authentication data
 export const setAuthToken = (token) => {

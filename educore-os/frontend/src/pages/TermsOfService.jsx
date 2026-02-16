@@ -14,7 +14,7 @@ const TermsOfService = () => {
           <p className="text-sm font-semibold text-gray-900 mb-8">Effective Date: February 8, 2026</p>
           
           <p className="text-gray-700 leading-relaxed mb-4">
-            Welcome to EduCore OS. These Terms of Service ("Terms") govern your access to and use of the EduCore OS platform and services. By accessing or using our platform, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our services.
+            Welcome to Skoolar. These Terms of Service ("Terms") govern your access to and use of the Skoolar platform and services. By accessing or using our platform, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our services.
           </p>
           
           <p className="text-gray-700 leading-relaxed">
@@ -26,14 +26,14 @@ const TermsOfService = () => {
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-xl font-bold text-gray-900 mb-4">1. Acceptance of Terms</h2>
             <p className="leading-relaxed">
-              By accessing or using the EduCore OS platform ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you may not access or use the Service. These Terms apply to all users, including schools, administrators, teachers, students, and parents.
+              By accessing or using the Skoolar platform ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you may not access or use the Service. These Terms apply to all users, including schools, administrators, teachers, students, and parents.
             </p>
           </section>
 
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-xl font-bold text-gray-900 mb-4">2. Description of Service</h2>
             <p className="leading-relaxed mb-4">
-              EduCore OS provides a comprehensive academic management platform for Nigerian secondary schools, including:
+              Skoolar provides a comprehensive academic management platform for Nigerian secondary schools, including:
             </p>
             <ul className="space-y-2 ml-6">
               <li className="leading-relaxed">Student records management</li>
@@ -136,7 +136,7 @@ const TermsOfService = () => {
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-xl font-bold text-gray-900 mb-4">8. Limitation of Liability</h2>
             <p className="leading-relaxed mb-4">
-              TO THE MAXIMUM EXTENT PERMITTED BY LAW, EDUCORE OS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES.
+              TO THE MAXIMUM EXTENT PERMITTED BY LAW, SKOOLAR SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES.
             </p>
             <p className="leading-relaxed">
               Our total liability shall not exceed the amount paid by you in the 12 months preceding the claim.
@@ -146,7 +146,7 @@ const TermsOfService = () => {
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-xl font-bold text-gray-900 mb-4">9. Indemnification</h2>
             <p className="leading-relaxed">
-              You agree to indemnify and hold harmless EduCore OS from any claims, damages, losses, liabilities, and expenses arising from your use of the Service or violation of these Terms.
+              You agree to indemnify and hold harmless Skoolar from any claims, damages, losses, liabilities, and expenses arising from your use of the Service or violation of these Terms.
             </p>
           </section>
 
@@ -211,8 +211,8 @@ const TermsOfService = () => {
               For questions about these Terms, please contact us:
             </p>
             <div className="bg-gray-50 border border-gray-200 p-6">
-              <p className="font-semibold text-gray-900 mb-3">EduCore OS</p>
-              <p className="text-gray-700 mb-2">Email: <a href="mailto:legal@educore.ng" className="text-[#1e3a8a] hover:underline">legal@educore.ng</a></p>
+              <p className="font-semibold text-gray-900 mb-3">Skoolar</p>
+              <p className="text-gray-700 mb-2">Email: <a href="mailto:legal@skoolar.com" className="text-[#1e3a8a] hover:underline">legal@skoolar.com</a></p>
               <p className="text-gray-700 mb-2">Phone: +234 801 234 5678</p>
               <p className="text-gray-700">Address: Lagos, Nigeria</p>
             </div>
@@ -220,7 +220,7 @@ const TermsOfService = () => {
 
           <section className="border-t border-gray-200 pt-8">
             <p className="text-sm text-gray-600 italic">
-              By using EduCore OS, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+              By using Skoolar, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
             </p>
           </section>
 

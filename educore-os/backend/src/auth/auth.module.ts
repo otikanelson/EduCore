@@ -24,7 +24,7 @@ import { RegistrationService } from './services/registration.service';
     PrismaModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'educore-secret-key-change-in-production',
+      secret: process.env.JWT_SECRET || 'skoolar-secret-key-change-in-production',
       signOptions: { expiresIn: '15m' }, // Default for access tokens
     }),
   ],
