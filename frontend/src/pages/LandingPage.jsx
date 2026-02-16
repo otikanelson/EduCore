@@ -20,7 +20,7 @@ const LandingPage = () => {
 
   const testimonials = [
     {
-      quote: "EduCore has transformed how we manage our academic operations. What used to take days now takes minutes. The system is intuitive, reliable, and has significantly reduced our administrative burden.",
+      quote: "Skoolar has transformed how we manage our academic operations. What used to take days now takes minutes. The system is intuitive, reliable, and has significantly reduced our administrative burden.",
       name: "Mrs. Oluwaseun Adeyemi",
       role: "Principal, Grace International School",
       image: PFP1
@@ -38,7 +38,7 @@ const LandingPage = () => {
       image: PFP3
     },
     {
-      quote: "Managing multiple classes and hundreds of students used to be overwhelming. EduCore brought structure and clarity to our operations. I can now focus on improving education quality rather than drowning in paperwork.",
+      quote: "Managing multiple classes and hundreds of students used to be overwhelming. Skoolar brought structure and clarity to our operations. I can now focus on improving education quality rather than drowning in paperwork.",
       name: "Mr. Tunde Ajayi",
       role: "School Administrator, Bright Future Schools",
       image: null
@@ -111,7 +111,7 @@ const LandingPage = () => {
               Academic Management Made Simple
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-2">
-              EduCore is a centralized platform that helps schools manage academic records, 
+              Skoolar is a centralized platform that helps schools manage academic records, 
               assessments, and internal examinations within one secure environment.
             </p>
             <motion.div 
@@ -209,7 +209,7 @@ const LandingPage = () => {
                 Everything your school needs in one platform.
               </h2>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
-                EduCore streamlines academic operations with comprehensive tools for result management, student records, and examination workflows. Teachers record assessments efficiently, administrators oversee approval processes, and parents access report cards instantly.
+                Skoolar streamlines academic operations with comprehensive tools for result management, student records, and examination workflows. Teachers record assessments efficiently, administrators oversee approval processes, and parents access report cards instantly.
               </p>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
                 From continuous assessment tracking to computer-based internal examinations, every feature is designed to reduce administrative burden while maintaining accuracy and security across your entire academic ecosystem.
@@ -284,7 +284,7 @@ const LandingPage = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-center text-sm sm:text-base md:text-lg text-gray-600 mb-10 sm:mb-12 md:mb-16 max-w-2xl mx-auto px-2"
           >
-            EduCore is designed for easy adoption without disrupting existing school operations.
+            Skoolar is designed for easy adoption without disrupting existing school operations.
           </motion.p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
@@ -345,7 +345,7 @@ const LandingPage = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-center text-sm sm:text-base md:text-lg text-gray-600 mb-10 sm:mb-12 md:mb-14 max-w-2xl mx-auto px-2"
         >
-          EduCore supports the tasks schools already perform — now with greater speed, accuracy, and visibility.
+          Skoolar supports the tasks schools already perform — now with greater speed, accuracy, and visibility.
         </motion.p>
 
         <div className="space-y-4 sm:space-y-5 md:space-y-6">
