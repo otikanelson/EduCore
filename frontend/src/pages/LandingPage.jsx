@@ -206,13 +206,13 @@ const LandingPage = () => {
               className="order-2 lg:order-1"
             >
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-                Stay connected easily and securely through Skoolar.
+                Everything your school needs in one platform.
               </h2>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
-                Our app provides fast and reliable communication through an integrated platform that features real-time chat for easy conversations between parents, teachers, and students.
+                EduCore streamlines academic operations with comprehensive tools for result management, student records, and examination workflows. Teachers record assessments efficiently, administrators oversee approval processes, and parents access report cards instantly.
               </p>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
-                Additionally, it includes a payment system for handling school-related transactions and an assignment management tool, allowing students to track and submit their work while parents monitor their progress—all within a secure environment.
+                From continuous assessment tracking to computer-based internal examinations, every feature is designed to reduce administrative burden while maintaining accuracy and security across your entire academic ecosystem.
               </p>
               <Link 
                 to="/features"
