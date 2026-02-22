@@ -4,6 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PrismaModule } from './prisma/prisma.module';
       limit: 10, // 10 requests per 60 seconds
     }]),
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
